@@ -64,7 +64,7 @@
                                     现在您可以
                                 </div>
                                 <div class="buts-box">
-                                    <a role="button" href="index.html"
+                                    <a role="button" href="/"
                                        class="btn btn-block btn-lg btn-default">继续访问商城</a>
                                     <a role="button" href="udai_welcome.html" class="btn btn-block btn-lg btn-info">登录会员中心</a>
                                 </div>
@@ -138,7 +138,7 @@
                     return;
                 }
                 let result = await login({"phone_number": this.phone, "code": this.code, "type": 2});
-                if (result.status == 1) {
+                if (result.status == 200) {
                     localStorage.setItem("token", result.result.token);
                     localStorage.setItem("username", result.result.username);
                     if (this.url == "undefined") {

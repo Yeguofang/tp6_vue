@@ -21,298 +21,77 @@
             <section class="filter-section clearfix">
                 <ol class="breadcrumb">
                     <li>首页</li>
-                    <li class="active">商品筛选</li>
+                    <li>商品筛选</li>
+                    <li class="active" v-text="topCateName"></li>
                 </ol>
                 <div class="filter-box">
-                    <div class="all-filter">
-                        <div class="filter-value">
-                            <div class="filter-title">选择商品分类 <i class="iconfont icon-down"></i></div>
-                            <!-- 全部大分类 -->
-                            <ul class="catelist-card">
-                                <a href="">
-                                    <li class="active">全部分类</li>
-                                </a>
-                                <a href="">
-                                    <li>女装</li>
-                                </a>
-                                <a href="">
-                                    <li>男装</li>
-                                </a>
-                                <a href="">
-                                    <li>包包</li>
-                                </a>
-                                <a href="">
-                                    <li>童装</li>
-                                </a>
-                                <a href="">
-                                    <li>鞋靴</li>
-                                </a>
-                            </ul>
-                            <!-- 已选选项 -->
-                            <!--                            <div class="ul_filter">-->
-                            <!--							<span class="pull-left">-->
-                            <!--								颜色：红色 <a href="javascript:;" class="close">&times;</a>-->
-                            <!--							</span>-->
-                            <!--                            <span class="pull-left">-->
-                            <!--								尺寸：XXL <a href="javascript:;" class="close">&times;</a>-->
-                            <!--							</span>-->
-                            <!--                            </div>-->
-                            <!--                            <a class="reset pull-right" href="item_category.html">重置</a>-->
-                        </div>
-                    </div>
                     <div class="filter-prop-item">
-                        <span class="filter-prop-title">分类：</span>
+                        <span class="filter-prop-title">二级分类：</span>
                         <ul class="clearfix">
-                            <a href="">
-                                <li class="active">全部</li>
-                            </a>
-                            <a href="">
-                                <li>上装</li>
-                            </a>
-                            <a href="">
-                                <li>下装</li>
-                            </a>
-                            <a href="">
-                                <li>裙装</li>
-                            </a>
-                            <a href="">
-                                <li>内衣</li>
+                            <a>
+                                <li class="cate2" :id="'cate2_'+k" @click="changeCate2(k)"
+                                    v-for="(v,k) in categoryInfo2" :key="k" v-text="v.name"></li>
                             </a>
                         </ul>
                     </div>
                     <div class="filter-prop-item">
-                        <span class="filter-prop-title">颜色：</span>
+                        <span class="filter-prop-title">三级分类：</span>
                         <ul class="clearfix">
-                            <a href="">
-                                <li class="active">全部</li>
-                            </a>
-                            <a href="">
-                                <li>红色</li>
-                            </a>
-                            <a href="">
-                                <li>粉红</li>
-                            </a>
-                            <a href="">
-                                <li>蓝色</li>
-                            </a>
-                            <a href="">
-                                <li>白色</li>
+                            <a>
+                                <li class="cate3" :id="'cate3_'+k" @click="changeCate3(k)"
+                                    v-for="(v,k) in categoryInfo3" :key="k" v-text="v.name"></li>
                             </a>
                         </ul>
                     </div>
-                    <div class="filter-prop-item">
-                        <span class="filter-prop-title">尺寸：</span>
+                    <div class="filter-prop-item hide" v-for="(v,k) in skuInfo">
+                        <span class="filter-prop-title" v-text="v.name+'：'"></span>
                         <ul class="clearfix">
-                            <a href="">
-                                <li class="active">全部</li>
+                            <a>
+                                <li :class="'active '+'sku_'+k" :id="'sku_'+k+'_-1'" @click="changeSku(k,-1)">全部</li>
                             </a>
-                            <a href="">
-                                <li>L</li>
+                            <a v-for="(v1,k1) in v.list">
+                                <li :class="'sku_'+k" :id="'sku_'+k+'_'+k1" v-text="v1.name"
+                                    @click="changeSku(k,k1)"></li>
                             </a>
-                            <a href="">
-                                <li>M</li>
-                            </a>
-                            <a href="">
-                                <li>S</li>
-                            </a>
-                            <a href="">
-                                <li>X</li>
-                            </a>
-                            <a href="">
-                                <li>XL</li>
-                            </a>
-                            <a href="">
-                                <li>XXL</li>
-                            </a>
-                            <a href="">
-                                <li>XXXL</li>
-                            </a>
-                        </ul>
-                    </div>
-                    <div class="filter-prop-item">
-                        <span class="filter-prop-title">价格：</span>
-                        <ul class="clearfix">
-                            <a href="">
-                                <li class="active">全部</li>
-                            </a>
-                            <a href="">
-                                <li>0-20</li>
-                            </a>
-                            <a href="">
-                                <li>20-40</li>
-                            </a>
-                            <a href="">
-                                <li>40-80</li>
-                            </a>
-                            <a href="">
-                                <li>80-100</li>
-                            </a>
-                            <a href="">
-                                <li>100-150</li>
-                            </a>
-                            <a href="">
-                                <li>150以上</li>
-                            </a>
-                            <form class="price-order">
-                                <input type="text">
-                                <span class="cc">-</span>
-                                <input type="text">
-                                <input type="button" value="确定">
-                            </form>
                         </ul>
                     </div>
                 </div>
                 <div class="sort-box bgf5">
                     <div class="sort-text">排序：</div>
-                    <div class="sort-text">销量 <i class="iconfont icon-sortDown"></i></div>
-                    <div class="sort-text">评价 <i class="iconfont icon-sortUp"></i></div>
-                    <div class="sort-text">价格 <i class="iconfont"></i></div>
-                    <div class="sort-total pull-right">共1688个商品</div>
+                    <div class="sort-text" id="orderNum" @click="changeOrderNum">销量 <i id="orderNumIcon"
+                                                                                       class="iconfont"></i>
+                    </div>
+                    <div class="sort-text" id="orderPrice" @click="changeOrderPrice">价格 <i id="orderPriceIcon"
+                                                                                           class="iconfont"></i></div>
+                    <div class="sort-total pull-right">共<span v-text="total"></span>个商品</div>
                 </div>
             </section>
             <section class="item-show__div clearfix">
-                <div class="pull-left">
+                <div class="pull-left" style="width: 1200px;">
                     <div class="item-list__area clearfix">
-                        <div class="item-card">
-                            <router-link to="/detail" class="photo">
-                                <img src="https://img10.360buyimg.com/n2/jfs/t1/75251/11/13363/334605/5daac7baEe6f10939/e5c2f4dc7e32fda3.jpg"
-                                     alt="锦瑟 原创传统日常汉服男绣花交领衣裳cp情侣装春夏款"
+                        <div class="item-card" v-for="(v,k) in result">
+                            <router-link :to="'/detail?id='+v.id" class="photo">
+                                <img :src="v.image"
+                                     :alt="v.title"
                                      class="cover">
-                                <div class="name">锦瑟 原创传统日常汉服男绣花交领衣裳cp情侣装春夏款</div>
+                                <div class="name" v-text="v.title"></div>
                             </router-link>
                             <div class="middle">
                                 <div class="price">
                                     <small>￥</small>
-                                    18.0
+                                    {{v.price}}
                                 </div>
-                                <div class="sale"><a href="">加入购物车</a></div>
+                                <div class="sale"><a @click="addCart(v.id)">加入购物车</a></div>
                             </div>
                             <div class="buttom">
-                                <div>销量 <b>666</b></div>
-                                <div>人气 <b>888</b></div>
-                                <div>评论 <b>1688</b></div>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <a href="item_show.html" class="photo">
-                                <img src="https://img10.360buyimg.com/n2/jfs/t1/83976/17/13522/269558/5dad16d6E44f16555/c46f52288570118a.jpg"
-                                     alt="霜天月明 原创日常汉服男云纹绣花单大氅传统礼服外套" class="cover">
-                                <div class="name">霜天月明 原创日常汉服男云纹绣花单大氅传统礼服外套</div>
-                            </a>
-                            <div class="middle">
-                                <div class="price">
-                                    <small>￥</small>
-                                    18.0
-                                </div>
-                                <div class="sale"><a href="">加入购物车</a></div>
-                            </div>
-                            <div class="buttom">
-                                <div>销量 <b>666</b></div>
-                                <div>人气 <b>888</b></div>
-                                <div>评论 <b>1688</b></div>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <a href="item_show.html" class="photo">
-                                <img src="@/assets/images/temp/M-003.jpg" alt="陇上乐原创传统日常汉服男绣花交领cp情侣非古装春秋" class="cover">
-                                <div class="name">陇上乐原创传统日常汉服男绣花交领cp情侣非古装春秋</div>
-                            </a>
-                            <div class="middle">
-                                <div class="price">
-                                    <small>￥</small>
-                                    18.0
-                                </div>
-                                <div class="sale"><a href="">加入购物车</a></div>
-                            </div>
-                            <div class="buttom">
-                                <div>销量 <b>666</b></div>
-                                <div>人气 <b>888</b></div>
-                                <div>评论 <b>1688</b></div>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <a href="item_show.html" class="photo">
-                                <img src="https://img11.360buyimg.com/n2/jfs/t1/64354/38/10354/407895/5d7f0967E4e4ccd74/4265f64d6f52603a.jpg"
-                                     alt="霜天月明 原创传统日常汉服男绣花交领衣裳cp春装单品"
-                                     class="cover">
-                                <div class="name">霜天月明 原创传统日常汉服男绣花交领衣裳cp春装单品</div>
-                            </a>
-                            <div class="middle">
-                                <div class="price">
-                                    <small>￥</small>
-                                    18.0
-                                </div>
-                                <div class="sale"><a href="">加入购物车</a></div>
-                            </div>
-                            <div class="buttom">
-                                <div>销量 <b>666</b></div>
-                                <div>人气 <b>888</b></div>
-                                <div>评论 <b>1688</b></div>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <a href="item_show.html" class="photo">
-                                <img src="https://img11.360buyimg.com/n8/jfs/t1/33712/34/14343/139215/5d0ddb64Ed3694d55/6cec565de4b8732a.jpg"
-                                     alt="琅轩日常汉服男龙纹绣花短褙子气质传统外套春秋非古装" class="cover">
-                                <div class="name">琅轩日常汉服男龙纹绣花短褙子气质传统外套春秋非古装</div>
-                            </a>
-                            <div class="middle">
-                                <div class="price">
-                                    <small>￥</small>
-                                    18.0
-                                </div>
-                                <div class="sale"><a href="">加入购物车</a></div>
-                            </div>
-                            <div class="buttom">
-                                <div>销量 <b>666</b></div>
-                                <div>人气 <b>888</b></div>
-                                <div>评论 <b>1688</b></div>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <a href="item_show.html" class="photo">
-                                <img src="https://img11.360buyimg.com/n2/jfs/t1/64354/38/10354/407895/5d7f0967E4e4ccd74/4265f64d6f52603a.jpg"
-                                     alt="峥嵘 原创设计传统日常汉服男绣花唐制圆领袍春秋非古装"
-                                     class="cover">
-                                <div class="name">峥嵘 原创设计传统日常汉服男绣花唐制圆领袍春秋非古装</div>
-                            </a>
-                            <div class="middle">
-                                <div class="price">
-                                    <small>￥</small>
-                                    18.0
-                                </div>
-                                <div class="sale"><a href="">加入购物车</a></div>
-                            </div>
-                            <div class="buttom">
-                                <div>销量 <b>666</b></div>
-                                <div>人气 <b>888</b></div>
-                                <div>评论 <b>1688</b></div>
+                                <div>销量 <b v-text="v.sales_count"></b></div>
                             </div>
                         </div>
                     </div>
                     <!-- 分页 -->
-                    <Page :total="100" show-total show-elevator show-sizer style="margin-left: 15%;"/>
-                </div>
-                <div class="pull-right">
-                    <div class="desc-segments__content">
-                        <div class="lace-title">
-                            <span class="c6">爆款推荐</span>
-                        </div>
-                        <div class="picked-box">
-                            <a href="" class="picked-item"><img src="@/assets/images/temp/S-001.jpg" alt=""
-                                                                class="cover"><span
-                                    class="look_price">¥134.99</span></a>
-                            <a href="" class="picked-item"><img src="@/assets/images/temp/S-002.jpg" alt=""
-                                                                class="cover"><span
-                                    class="look_price">¥134.99</span></a>
-                            <a href="" class="picked-item"><img src="@/assets/images/temp/S-003.jpg" alt=""
-                                                                class="cover"><span
-                                    class="look_price">¥134.99</span></a>
-                            <a href="" class="picked-item"><img src="@/assets/images/temp/S-004.jpg" alt=""
-                                                                class="cover"><span
-                                    class="look_price">¥134.99</span></a>
-                        </div>
-                    </div>
+                    <Page :total="total" :current="pageNum" show-sizer show-total @on-page-size-change="pageSizeChange"
+                          :page-size="pageSize"
+                          @on-change="changePage" style="text-align: center;"></Page>
                 </div>
             </section>
         </div>
@@ -320,17 +99,283 @@
     </div>
 </template>
 
+<style>
+    .sort-box .active {
+        color: #b31e22;
+    }
+
+    .item-card {
+        width: 220px;
+    }
+</style>
 <script>
     import header_ from '../components/header_'
     import search from '../components/search'
     import footer_ from '../components/footer_'
+    import {sku, categorySearch, lists, subcategory, addCart} from "../lib/interface";
 
     export default {
-        components: {header_, search, footer_},
         name: "category",
+        components: {header_, search, footer_},
+        data() {
+            return {
+                "cid": 0,
+                "skuInfo": [],
+                "color": -1,
+                "size": -1,
+                "price": -1,
+                "cate2": -1,
+                "cate3": -1,
+                "orderType": -1,
+                "orderNum": -1,
+                "orderPrice": -1,
+
+                "topCateName": "",
+                "categoryInfo": [],
+                "categoryInfo2": [],
+                "categoryInfo3": [],
+                "cate": [],
+
+                "pageSize": 10,
+                "pageNum": 1,
+                "total": 0,
+                "result": []
+            }
+        },
         mounted() {
-            $('.to-top').toTop({position: false})
+            $('.to-top').toTop({position: false});
+            this.cid = this.$route.query.cid;
+            if (!this.cid || this.cid === 0) {
+                this.$router.push("/");
+            }
+            // this.getSku();
+            this.getCategorySearch();
+        },
+        methods: {
+            async getSku() {
+                let result = await sku({"category_id": this.cid});
+                this.skuInfo = result.result;
+            },
+            async getCategorySearch() {
+                let result = await categorySearch({"id": this.cid});
+                this.topCateName = result.result.name;
+                this.cate = result.result.focus_ids;
+                this.categoryInfo = result.result.list;
+                this.categoryInfo2 = this.categoryInfo[0];
+                this.categoryInfo3 = this.categoryInfo[1];
+
+                this.$nextTick(function () {
+                    if (this.cate.length >= 1) {
+                        for (var i = 0; i < this.categoryInfo[0].length; i++) {
+                            if (this.categoryInfo[0][i].id === this.cate[0]) {
+                                this.cate2 = this.categoryInfo[0][i].id;
+                                $(".cate2").removeClass("active");
+                                $("#cate2_" + i).addClass("active");
+                            }
+                        }
+                    }
+                    if (this.cate.length > 1) {
+                        for (var i = 0; i < this.categoryInfo[1].length; i++) {
+                            if (this.categoryInfo[1][i].id === this.cate[1]) {
+                                this.cate3 = this.categoryInfo[1][i].id;
+                                $(".cate3").removeClass("active");
+                                $("#cate3_" + i).addClass("active");
+                            }
+                        }
+                    }
+                    this.getResult();
+                });
+            },
+            changeSku(k, k1) {
+                $(".sku_" + k).removeClass("active");
+                $("#sku_" + k + "_" + k1).addClass("active");
+                if (k == 0) {
+                    if (k1 == -1) {
+                        this.color = -1
+                    } else {
+                        this.color = this.skuInfo[k].list[k1].id
+                    }
+                } else if (k == 1) {
+                    if (k1 == -1) {
+                        this.size = -1
+                    } else {
+                        this.size = this.skuInfo[k].list[k1].id
+                    }
+                } else {
+                    if (k1 == -1) {
+                        this.price = -1
+                    } else {
+                        this.price = this.skuInfo[k].list[k1].id
+                    }
+                }
+                this.pageNum = 1;
+                this.getResult();
+            },
+            changeCate2(k) {
+                if (k === -1) {
+                    this.cate2 = -1;
+                } else {
+                    this.cate2 = this.categoryInfo[0][k].id;
+                    this.cid = this.cate2;
+                }
+                $(".cate2").removeClass("active");
+                $("#cate2_" + k).addClass("active");
+                this.pageNum = 1;
+                this.getResult();
+                if (this.cate2 !== -1) {
+                    this.getSubcategory();
+                }
+            },
+            async getSubcategory() {
+                let result = await subcategory({"id": this.cate2});
+                this.categoryInfo3 = result.result;
+                $(".cate3").removeClass("active");
+                $("#cate3_0").addClass("active");
+            },
+            changeCate3(k) {
+                if (k === -1) {
+                    this.cate3 = -1;
+                } else {
+                    this.cate3 = this.categoryInfo[1][k].id;
+                    this.cid = this.cate3;
+                }
+                $(".cate3").removeClass("active");
+                $("#cate3_" + k).addClass("active");
+                this.pageNum = 1;
+                this.getResult();
+            },
+            changeOrderNum() {
+                this.orderType = 0;
+                if (this.orderNum === -1) {
+                    this.orderNum = 0;
+                    $("#orderNum").addClass("active");
+                    $("#orderNumIcon").addClass("icon-sortUp");
+                    $("#orderNumIcon").removeClass("icon-sortDown");
+                } else if (this.orderNum === 0) {
+                    this.orderNum = 1;
+                    $("#orderNum").addClass("active");
+                    $("#orderNumIcon").removeClass("icon-sortUp");
+                    $("#orderNumIcon").addClass("icon-sortDown");
+                } else {
+                    this.orderType = -1;
+                    this.orderNum = -1;
+                    $("#orderNum").removeClass("active");
+                    $("#orderNumIcon").removeClass("icon-sortUp");
+                    $("#orderNumIcon").removeClass("icon-sortDown");
+                }
+                this.orderPrice = -1;
+                $("#orderPrice").removeClass("active");
+                $("#orderPriceIcon").removeClass("icon-sortUp");
+                $("#orderPriceIcon").removeClass("icon-sortDown");
+                this.pageNum = 1;
+                this.getResult();
+            },
+            changeOrderPrice() {
+                this.orderType = 1;
+                if (this.orderPrice === -1) {
+                    this.orderPrice = 0;
+                    $("#orderPrice").addClass("active");
+                    $("#orderPriceIcon").addClass("icon-sortUp");
+                    $("#orderPriceIcon").removeClass("icon-sortDown");
+                } else if (this.orderPrice === 0) {
+                    this.orderPrice = 1;
+                    $("#orderPrice").addClass("active");
+                    $("#orderPriceIcon").removeClass("icon-sortUp");
+                    $("#orderPriceIcon").addClass("icon-sortDown");
+                } else {
+                    this.orderType = -1;
+                    this.orderPrice = -1;
+                    $("#orderPrice").removeClass("active");
+                    $("#orderPriceIcon").removeClass("icon-sortUp");
+                    $("#orderPriceIcon").removeClass("icon-sortDown");
+                }
+                this.orderNum = -1;
+                $("#orderNum").removeClass("active");
+                $("#orderNumIcon").removeClass("icon-sortUp");
+                $("#orderNumIcon").removeClass("icon-sortDown");
+                this.pageNum = 1;
+                this.getResult();
+            },
+            async pageSizeChange(pageSize) {
+                this.pageSize = pageSize;
+                this.getResult()
+            },
+            changePage(page) {
+                this.pageNum = page;
+                this.getResult()
+            },
+            async getResult() {
+                var skuStr = "";
+                if (this.color !== -1) {
+                    skuStr += this.color + ","
+                }
+                if (this.size !== -1) {
+                    skuStr += this.size + ","
+                }
+                if (this.price !== -1) {
+                    skuStr += this.price + ","
+                }
+                skuStr = skuStr.substr(0, skuStr.length - 1);
+                var orderTypeValue = undefined;
+                var orderValue = undefined;
+                if (this.orderType === -1) {
+                    orderTypeValue = undefined;
+                    orderValue = undefined;
+                } else if (this.orderType === 1) {
+                    orderTypeValue = "price";
+                    if (this.orderPrice === -1) {
+                        orderValue = undefined;
+                    } else if (this.orderPrice === 0) {
+                        orderValue = 1
+                    } else {
+                        orderValue = 2
+                    }
+                } else {
+                    orderTypeValue = "sales_count";
+                    if (this.orderNum === -1) {
+                        orderValue = undefined;
+                    } else if (this.orderNum === 0) {
+                        orderValue = 1
+                    } else {
+                        orderValue = 2
+                    }
+                }
+                var data = {
+                    "category_id": this.cid,
+                    // "sku_ids": skuStr,
+                    "page": this.pageNum,
+                    "page_size": this.pageSize,
+                };
+                if (this.cid === -1) {
+                    delete (data["category_id"])
+                }
+                if (this.orderType !== -1) {
+                    data.field = orderTypeValue;
+                } else {
+                    delete (data["field"])
+                }
+                if (this.orderType !== -1) {
+                    data.order = orderValue
+                } else {
+                    delete ["order"]
+                }
+                let result = await lists(data);
+                this.result = result.result.list;
+                this.total = result.result.count;
+            },
+            async addCart(id) {
+                var token = localStorage.getItem("token");
+                if (token === undefined || token === null) {
+                    this.$router.replace({
+                        name: "login",
+                        query: {redirect: this.$route.fullPath}
+                    })
+                }
+                let result = await addCart({"id": id});
+                this.$Message.success(result.message);
+            }
         }
+
     }
 </script>
 

@@ -20,7 +20,7 @@ module.exports = {
     // 处理跨域请求
     proxy: {
       '/api': {
-        target: 'http://testmall.singwa666.com/',
+        target: 'http://shop.tp6.com/',
         ws: true,
         changeOrigin: true,
         pathRewrite: {

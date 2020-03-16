@@ -106,3 +106,17 @@ label > input[type="checkbox"]:checked + i::before {
 .bg3{background-color: #333;}
 .bgf{background-color: #fff;}
 .bgf5{background-color: #f5f5f5;}
+
+.demo-spin-icon-load{
+	animation: ani-demo-spin 1s linear infinite;
+}
+@keyframes ani-demo-spin {
+	from { transform: rotate(0deg);}
+	50%  { transform: rotate(180deg);}
+	to   { transform: rotate(360deg);}
+}
+.demo-spin-col{
+	height: 100px;
+	position: relative;
+	border: 1px solid #eee;
+}
